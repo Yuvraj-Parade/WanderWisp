@@ -16,6 +16,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
+// ─── NEW: import Listing for global fetch ───────────────────────────────
+const Listing = require("./models/listing.js"); // ← ADDED
+
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
@@ -80,12 +83,26 @@ app.use((req, res, next) => {
   next();
 });
 
-// Root route to prevent “Cannot GET /”
-// app.get("/", (req, res) => {
-//   // Renders views/listings/index.ejs
-//   res.render("listings/index");
-// });
+// ─── NEW: global fetch of allListings ────────────────────────────────────
+// This middleware runs on every request, queries all listings once,
+// and makes them available to any EJS template as `allListings`.
+app.use(async (req, res, next) => {
+  try {
+    const allListings = await Listing.find({});
+    res.locals.allListings = allListings;            // ← ADDED
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+// ─── END new allListings middleware ─────────────────────────────────────
 
+/*
+// If you still need a root landing, uncomment and render:
+app.get("/", (req, res) => {
+  res.render("listings/index");
+});
+*/
 
 // Main routers
 app.use("/listings", listingsRouter);
