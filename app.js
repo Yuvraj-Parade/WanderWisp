@@ -81,10 +81,10 @@ app.use((req, res, next) => {
 });
 
 // Root route to prevent “Cannot GET /”
-app.get("/", (req, res) => {
-  // Renders views/listings/index.ejs
-  res.render("listings/index");
-});
+// app.get("/", (req, res) => {
+//   // Renders views/listings/index.ejs
+//   res.render("listings/index");
+// });
 
 
 // Main routers
