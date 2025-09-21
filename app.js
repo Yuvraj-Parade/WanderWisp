@@ -90,7 +90,7 @@ app.use((req, res, next) => {
 // Main routers
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
-app.use("/", userRouter);
+app.use("/user", userRouter);
 
 // Error-handling middleware
 app.use((err, req, res, next) => {
