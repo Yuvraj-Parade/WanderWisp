@@ -82,8 +82,10 @@ app.use((req, res, next) => {
 
 // Root route to prevent “Cannot GET /”
 app.get("/", (req, res) => {
-  res.render("/views/layouts/boilerplate.ejs");
+  // Renders views/listings/index.ejs
+  res.render("listings/index");
 });
+
 
 // Main routers
 app.use("/listings", listingsRouter);
