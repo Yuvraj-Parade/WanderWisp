@@ -82,7 +82,7 @@ app.use((req, res, next) => {
 
 // Root route to prevent “Cannot GET /”
 app.get("/", (req, res) => {
-  res.send("Welcome to WanderWisp!");
+  res.render("/views/layouts/boilerplate.ejs");
 });
 
 // Main routers
